@@ -1,7 +1,7 @@
 import Sanscript from '@indic-transliteration/sanscript';
 
 export const FWD_OVERRIDES: Readonly<Record<string, string>> = {
-  hain: 'हें', hai: 'हें', kya: 'क्या', main: 'मैं', theek: 'ठीक', thik: 'ठीक', hoon: 'हूँ',
+  hain: 'हैं', kya: 'क्या', main: 'मैं', theek: 'ठीक', thik: 'ठीक', hoon: 'हूँ',
   yeh: 'यह', kyun: 'क्यों', kyu: 'क्यों', kyon: 'क्यों', mera: 'मेरा', meri: 'मेरी',
   mere: 'मेरे', tera: 'तेरा', teri: 'तेरी', humara: 'हमारा', tumhara: 'तुम्हारा',
   kahan: 'कहाँ', nahi: 'नहीं', nahin: 'नहीं', sab: 'सब', kuch: 'कुछ', aana: 'आना',
@@ -9,7 +9,7 @@ export const FWD_OVERRIDES: Readonly<Record<string, string>> = {
 };
 
 export const REV_OVERRIDES: Readonly<Record<string, string>> = {
-  कहाँ: 'kahan', यह: 'yeh', वह: 'woh', हें: 'hain',
+  कहाँ: 'kahan', यह: 'yeh', वह: 'woh',
 };
 
 const HINGLISH_WORD = /^([a-zA-Z]+)([^a-zA-Z]*)$/;
