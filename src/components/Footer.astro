@@ -1,0 +1,7 @@
+---
+const { locale } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="mt-12 border-t border-slate-200 py-8 text-center text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+  <p>&copy; {year} HinglishToHindi &middot; <a class="underline" href={locale === 'en' ? '/privacy-policy/' : '/hi/privacy-policy/'}>{locale === 'en' ? 'Privacy' : 'गोपनीयता'}</a></p>
+</footer>
