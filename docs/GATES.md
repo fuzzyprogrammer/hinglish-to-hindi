@@ -36,4 +36,41 @@ Hindi keyword grep (Devanagari `हिंग्लिश टू हिंदी`
 ---
 
 ## Gate G2 — Combined release
-Status: PENDING (after Task 12)
+Status: PASS (pending orchestrator review)
+
+### Evidence
+
+- [x] `npm run build` — 10 pages, clean
+- [x] `npm run test` — 27/27
+- [x] `npm run check` — 0 errors
+- [x] `/` head hreflang: en-IN + hi-IN + x-default (3 total)
+- [x] `/hi/` head hreflang: en-IN + hi-IN + x-default (3 total)
+- [x] JSON-LD valid on both locales (3 scripts each)
+- [x] No dead links — all nav links resolve to real pages
+- [x] Converter present in both `/` and `/hi/` home pages
+- [x] Sitemap lists 10 URLs
+- [x] Lighthouse mobile ≥ 90 (Performance, SEO, Accessibility)
+
+### Keyword Coverage
+
+English keyword grep (`dist/`, patterns: `hinglish to hindi|hinglish typing|hinglish words|hinglish examples|hinglish app|hinglish caption generator|hindi to hinglish`):
+
+```
+dist\index.html : 26
+dist\about\index.html : 8
+dist\contact\index.html : 7
+dist\privacy-policy\index.html : 6
+dist\terms\index.html : 7
+```
+
+Hindi keyword grep (`dist/hi/`, patterns: `हिंग्लिश टू हिंदी|हिंग्लिश टाइपिंग|हिंग्लिश शब्द|हिंग्लिश ऐप`):
+
+```
+dist\hi\index.html : 14
+dist\hi\about\index.html : 6
+dist\hi\contact\index.html : 5
+dist\hi\privacy-policy\index.html : 4
+dist\hi\terms\index.html : 5
+```
+
+---
