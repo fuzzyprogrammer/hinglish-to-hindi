@@ -1,10 +1,40 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { UI } from '../../lib/i18n';
+import Converter from '../../components/Converter.astro';
+import FAQ from '../../components/FAQ.astro';
+import { FAQ_ITEMS_HI } from '../../data/faq.hi';
+
+const appJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'हिंग्लिश टू हिंदी कन्वर्टर',
+  url: 'https://hinglish.openpixal.com/hi/',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+};
 ---
 <BaseLayout locale="hi" path="/hi/">
-  <section class="mx-auto max-w-3xl px-4 py-16 text-center">
-    <h1 class="text-xl font-bold">{UI.hi.converterTitle}</h1>
-    <p class="mt-3 text-slate-600 dark:text-slate-300">हिंदी संस्करण जल्द आ रहा है।</p>
+  <section class="mx-auto max-w-3xl px-4 pt-6">
+    <h1 class="text-2xl font-bold sm:text-3xl">हिंग्लिश टू हिंदी कन्वर्टर</h1>
+    <p class="mt-2 text-slate-600 dark:text-slate-300">
+      रोमन हिंग्लिश टाइप करें और तुरंत देवनागरी हिंदी पाएँ। मुफ्त हिंग्लिश टू हिंदी
+      अनुवाद टूल — <strong>हिंदी से हिंग्लिश</strong> भी, बिना अकाउंट, बिना अपलोड।
+    </p>
+    <div class="mt-4"><Converter locale="hi" /></div>
   </section>
+
+  <article id="gee" class="mx-auto mt-12 max-w-3xl px-4">
+    <h2 class="text-xl font-bold">हिंग्लिश लिप्यंतरण बनाम अनुवाद</h2>
+    <p class="mt-2 text-slate-600 dark:text-slate-300">
+      लिप्यंतरण (transliteration) एक लिपि से दूसरी लिपि में ध्वनि मिलाता है — रोमन
+      <em>kya</em> से देवनागरी <em>क्यै</em>; अनुवाद दो भाषाओं के बीच अर्थ बदलता है।
+      यह टूल हिंग्लिश का लिप्यंतरण इंजन है — hain, hai, kya, meri जैसे आम शब्द अपने आप
+      ठीक हो जाते हैं, और संदिग्ध/अंग्रेज़ी शब्द ज्यों-के-त्यों रहते हैं।
+    </p>
+  </article>
+
+  <FAQ faq={FAQ_ITEMS_HI} heading="अक्सर पूछे जाने वाले प्रश्न" />
+
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(appJsonLd)} />
 </BaseLayout>
