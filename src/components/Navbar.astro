@@ -10,7 +10,7 @@ const { locale, path } = Astro.props as { locale: LocaleKey; path: string };
     <span>Hinglish<span class="text-indigo-600">To</span>Hindi</span>
   </a>
   <div class="hidden items-center gap-4 text-sm text-slate-600 md:flex dark:text-slate-300">
-    {NAV.filter((item) => HI_LIVE || locale === 'en').map((item) => (
+    {NAV.filter(() => HI_LIVE || locale === 'en').map((item) => (
       <a href={item.href[locale]} class:list={[{ 'font-semibold text-indigo-600 dark:text-indigo-400': path === item.href[locale] }, 'hover:text-slate-900 dark:hover:text-white']}>
         {item.label[locale]}
       </a>
