@@ -4,7 +4,7 @@ export const HI_LIVE = true; // Task 11 flips true once /hi/ content is complete
 
 export const LOCALES = {
   en: { lang: 'en', hreflang: 'en-IN', prefix: '', label: 'English', name: 'English' },
-  hi: { lang: 'hi', hreflang: 'hi-IN', prefix: '/hi', label: 'हिन्दī', name: 'हिन्दī' },
+  hi: { lang: 'hi', hreflang: 'hi-IN', prefix: '/hi', label: 'हिन्दी', name: 'हिन्दī' },
 } as const;
 
 export type LocaleKey = keyof typeof LOCALES;
