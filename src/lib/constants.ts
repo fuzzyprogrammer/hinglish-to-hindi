@@ -1,6 +1,6 @@
 export const SITE_URL = 'https://hinglish.openpixal.com';
 
-export const HI_LIVE = false; // Task 11 flips true once /hi/ content is complete.
+export const HI_LIVE = true; // Task 11 flips true once /hi/ content is complete.
 
 export const LOCALES = {
   en: { lang: 'en', hreflang: 'en-IN', prefix: '', label: 'English', name: 'English' },
