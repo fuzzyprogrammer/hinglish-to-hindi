@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+}
+
+html { scroll-behavior: smooth; }
