@@ -44,4 +44,10 @@ describe('hindiToHinglish', () => {
   it.each(rev)('romanizes %s', (inp, exp) => {
     expect(hindiToHinglish(inp)).toBe(exp);
   });
+
+  it('passes through emoji and non-Devanagari tokens unchanged', () => {
+    expect(hindiToHinglish('\u0928\u092e\u0938\u094d\u0924\u0947 \ud83d\udd25 ABC 123 !?')).toBe(
+      'namaste \ud83d\udd25 ABC 123 !?'
+    );
+  });
 });
