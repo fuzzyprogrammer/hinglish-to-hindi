@@ -33,6 +33,7 @@ export function hinglishToHindi(text: string): string {
 
 function romanizeWord(w: string): string {
   if (REV_OVERRIDES[w]) return REV_OVERRIDES[w];
+  if (!/[\u0900-\u097F]/.test(w)) return w; // no Devanagari → pass through unchanged
   let s = Sanscript.t(w, 'devanagari', 'itrans');
   s = s.replace(/\.N/g, 'n');
   s = s.replace(/M/g, (_mx, off) => (/[pPbB]/.test(s[off + 1] || '') ? 'm' : 'n'));
