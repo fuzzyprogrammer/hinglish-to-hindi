@@ -15,6 +15,13 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: HI_LIVE ? undefined : (page) => !page.includes('/hi/'),
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en-IN',
+          hi: 'hi-IN',
+        },
+      },
     }),
   ],
   vite: { plugins: [tailwindcss()] },

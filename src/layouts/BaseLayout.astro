@@ -13,6 +13,9 @@ interface Props {
 const { locale, path, title, description } = Astro.props;
 const meta = SEO_DEFAULTS[locale];
 const canonical = `${SITE_URL}${path}`;
+const mirrorPath = locale === 'en'
+  ? '/hi' + (path === '/' ? '/' : path)
+  : (path.replace(/^\/hi/, '') || '/');
 
 const orgJsonLd = {
   '@context': 'https://schema.org',
@@ -42,8 +45,8 @@ const breadcrumbJsonLd = crumbs ? {
     <title>{title ?? meta.title}</title>
     <meta name="description" content={description ?? meta.description} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="en-IN" href={`${SITE_URL}/`} />
-    {HI_LIVE && <link rel="alternate" hreflang="hi-IN" href={`${SITE_URL}/hi/`} />}
+    <link rel="alternate" hreflang="en-IN" href={`${SITE_URL}${locale === 'en' ? path : mirrorPath}`} />
+    {HI_LIVE && <link rel="alternate" hreflang="hi-IN" href={`${SITE_URL}${locale === 'hi' ? path : mirrorPath}`} />}
     <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/`} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title ?? meta.title} />
