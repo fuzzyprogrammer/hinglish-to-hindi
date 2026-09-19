@@ -15,6 +15,8 @@ export type UiStrings = {
   download: string;
   emptyDownload: string;
   pastedToast: (count: number) => string;
+  keyboard: string;
+  emoji: string;
 };
 
 export const UI: Record<LocaleKey, UiStrings> = {
@@ -33,6 +35,8 @@ export const UI: Record<LocaleKey, UiStrings> = {
     download: 'Download',
     emptyDownload: 'Nothing to download',
     pastedToast: (count: number) => `${count} words converted from pasted text`,
+    keyboard: 'Keyboard',
+    emoji: 'Emoji',
   },
   hi: {
     converterTitle: 'हिंग्लिश टू हिंदी कन्वर्टर',
@@ -49,5 +53,7 @@ export const UI: Record<LocaleKey, UiStrings> = {
     download: 'डाउनलोड',
     emptyDownload: 'डाउनलोड के लिए कुछ नहीं',
     pastedToast: (count: number) => `${count} शब्द पेस्ट किए गए टेक्स्ट से बदले`,
+    keyboard: 'कीबोर्ड',
+    emoji: 'इमोजी',
   },
 };
