@@ -72,6 +72,16 @@ const s = UI[locale];
       waBtn.href = 'https://wa.me/?text=' + encodeURIComponent(out || raw);
     };
     inputEl.addEventListener('input', render);
+    inputEl.addEventListener('paste', (e) => {
+      const pasted = e.clipboardData?.getData('text') || '';
+      if (pasted.length >= 50) {
+        e.preventDefault();
+        inputEl.value = pasted;
+        render();
+        const wordCount = pasted.trim().split(/\s+/).length;
+        showToast(s.pastedToast(wordCount));
+      }
+    });
     swapBtn.addEventListener('click', () => {
       mode = mode === 'h2h' ? 'hl' : 'h2h';
       swapBtn.textContent = mode === 'h2h' ? s.directionHinglishToHindi : s.directionHtoHinglish;
