@@ -22,12 +22,23 @@ const s = UI[locale];
     class="mt-3 block min-h-28 rounded-lg bg-indigo-50 p-3 text-lg leading-9 whitespace-pre-wrap text-indigo-900 dark:bg-indigo-950 dark:text-indigo-100"></output>
   <div id="metrics" class="mt-2 text-xs text-slate-500 dark:text-slate-400">0 {s.words} · 0 {s.chars}</div>
   <div class="mt-3 flex flex-wrap gap-2">
+    <button id="emoji-btn" type="button" aria-label={s.emoji} aria-expanded="false" aria-controls="emoji-panel" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">😊</button>
     <button id="copy-btn" type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700">{s.copy}</button>
     <button id="clear-btn" type="button" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">{s.clear}</button>
     <button id="listen-btn" type="button" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">{s.listen}</button>
     <button id="download-btn" type="button" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">{s.download}</button>
     <a id="wa-btn" href="https://wa.me/?text=" target="_blank" rel="noopener noreferrer"
       class="rounded-md border border-emerald-500 px-3 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950">{s.whatsapp}</a>
+  </div>
+  <div id="emoji-panel" class="hidden mt-3 rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-800">
+    <div class="mb-2 flex gap-1 border-b border-slate-200 pb-2 dark:border-slate-600">
+      <button data-emoji-tab="smileys" type="button" class="rounded px-2 py-1 text-xs font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300">Smileys</button>
+      <button data-emoji-tab="gestures" type="button" class="rounded px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-700">Gestures</button>
+      <button data-emoji-tab="objects" type="button" class="rounded px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-700">Objects</button>
+    </div>
+    <div data-emoji-grid="smileys" class="grid grid-cols-8 gap-1"></div>
+    <div data-emoji-grid="gestures" class="hidden grid grid-cols-8 gap-1"></div>
+    <div data-emoji-grid="objects" class="hidden grid grid-cols-8 gap-1"></div>
   </div>
   <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">{s.demoNote}</p>
   <div id="toast" role="status" class="pointer-events-none fixed inset-x-0 bottom-6 z-50 hidden justify-center">
@@ -52,6 +63,75 @@ const s = UI[locale];
     const waBtn = document.getElementById('wa-btn') as HTMLAnchorElement;
     const downloadBtn = document.getElementById('download-btn') as HTMLButtonElement;
     const toast = document.getElementById('toast') as HTMLElement;
+
+    const emojiBtn = document.getElementById('emoji-btn') as HTMLButtonElement;
+    const emojiPanel = document.getElementById('emoji-panel') as HTMLElement;
+    const keyboardBtn = document.getElementById('keyboard-btn') as HTMLButtonElement;
+    const keyboardPanel = document.getElementById('keyboard-panel') as HTMLElement;
+
+    const EMOJIS: Record<string, string[]> = {
+      smileys: ['😂','😍','🥰','😊','😎','🤔','😭','🙏','👍','❤️','🔥','✨','🎉','😋','🤗'],
+      gestures: ['👋','👌','✌️','🤝','👈','👉','👆','👇','💪','🙌','👏','🤌','✊','🫶','✋'],
+      objects: ['💯','🌟','💎','🎯','📱','💻','🛵','🏍️','🎵','📝','✍️','🔔','💰','🏆','🎁'],
+    };
+
+    Object.entries(EMOJIS).forEach(([category, emojis]) => {
+      const grid = emojiPanel.querySelector(`[data-emoji-grid="${category}"]`);
+      if (!grid) return;
+      emojis.forEach((emoji) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = emoji;
+        btn.className = 'flex h-10 w-10 items-center justify-center rounded text-xl hover:bg-slate-200 dark:hover:bg-slate-700';
+        btn.addEventListener('click', () => {
+          inputEl.focus();
+          const start = inputEl.selectionStart ?? inputEl.value.length;
+          inputEl.setRangeText(emoji, start, start, 'end');
+          render();
+        });
+        grid.appendChild(btn);
+      });
+    });
+
+    let activePanel: 'emoji' | 'keyboard' | null = null;
+
+    const closeAllPanels = () => {
+      emojiPanel.classList.add('hidden');
+      keyboardPanel?.classList.add('hidden');
+      emojiBtn.setAttribute('aria-expanded', 'false');
+      keyboardBtn?.setAttribute('aria-expanded', 'false');
+      emojiBtn.classList.remove('bg-indigo-100', 'text-indigo-700', 'dark:bg-indigo-900', 'dark:text-indigo-300');
+      keyboardBtn?.classList.remove('bg-indigo-100', 'text-indigo-700', 'dark:bg-indigo-900', 'dark:text-indigo-300');
+      activePanel = null;
+    };
+
+    emojiBtn.addEventListener('click', () => {
+      if (activePanel === 'emoji') { closeAllPanels(); return; }
+      closeAllPanels();
+      emojiPanel.classList.remove('hidden');
+      emojiBtn.setAttribute('aria-expanded', 'true');
+      emojiBtn.classList.add('bg-indigo-100', 'text-indigo-700', 'dark:bg-indigo-900', 'dark:text-indigo-300');
+      activePanel = 'emoji';
+    });
+
+    emojiPanel.querySelectorAll('[data-emoji-tab]').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-emoji-tab')!;
+        emojiPanel.querySelectorAll('[data-emoji-tab]').forEach((t) => {
+          t.className = 'rounded px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-700';
+        });
+        tab.className = 'rounded px-2 py-1 text-xs font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300';
+        emojiPanel.querySelectorAll('[data-emoji-grid]').forEach((g) => g.classList.add('hidden'));
+        emojiPanel.querySelector(`[data-emoji-grid="${target}"]`)?.classList.remove('hidden');
+      });
+    });
+
+    document.addEventListener('mousedown', (e) => {
+      if (activePanel && !emojiPanel.contains(e.target as Node) && !keyboardPanel?.contains(e.target as Node)
+        && e.target !== emojiBtn && e.target !== keyboardBtn) {
+        closeAllPanels();
+      }
+    });
 
     let mode: 'hl' | 'h2h' = 'h2h';
 
