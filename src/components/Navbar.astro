@@ -17,7 +17,7 @@ const { locale, path } = Astro.props as { locale: LocaleKey; path: string };
     ))}
   </div>
   <div class="flex items-center gap-2">
-    <LangSwitcher locale={locale} />
+    <LangSwitcher locale={locale} path={path} />
     <ThemeToggle locale={locale} />
   </div>
 </nav>

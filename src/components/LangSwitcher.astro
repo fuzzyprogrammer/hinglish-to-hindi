@@ -1,11 +1,13 @@
 ---
 import { LOCALES } from '../lib/constants';
-const { locale } = Astro.props;
+const { locale, path } = Astro.props;
 const other = locale === 'en' ? 'hi' : 'en';
-const href = other === 'en' ? '/' : '/hi/';
+const mirror = locale === 'en'
+  ? '/hi' + (path === '/' ? '/' : path)
+  : (path.replace(/^\/hi/, '') || '/');
 ---
 <nav aria-label="Language" class="flex items-center gap-1 text-sm">
-  <a href={href} class="rounded-md border border-slate-300 px-2.5 py-1.5 font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800">
+  <a href={mirror} class="rounded-md border border-slate-300 px-2.5 py-1.5 font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800">
     {LOCALES[other].label}
   </a>
 </nav>
