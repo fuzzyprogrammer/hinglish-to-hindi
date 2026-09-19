@@ -22,6 +22,13 @@ const orgJsonLd = {
   '@type': 'Organization',
   name: 'HinglishToHindi',
   url: SITE_URL,
+  logo: `${SITE_URL}/logo.svg`,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'contact@openpixal.com',
+    contactType: 'customer support',
+    availableLanguage: ['English', 'Hindi'],
+  },
 };
 const crumbs = crumbsFor(path);
 const breadcrumbJsonLd = crumbs ? {
@@ -53,6 +60,12 @@ const breadcrumbJsonLd = crumbs ? {
     <meta property="og:description" content={description ?? meta.description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={locale === 'en' ? 'en_IN' : 'hi_IN'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title ?? meta.title} />
+    <meta name="twitter:description" content={description ?? meta.description} />
+    <meta name="twitter:image" content={`${SITE_URL}/logo.jpeg`} />
+    <meta name="theme-color" content="#4F39F6" />
+    <meta name="robots" content="index, follow" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/logo.jpeg" />

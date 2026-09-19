@@ -44,11 +44,11 @@ export const SEO_DEFAULTS: Record<LocaleKey, {
   title: string; description: string;
 }> = {
   en: {
-    title: 'Hinglish to Hindi Converter — Type & Get Devanagari Instantly',
-    description: 'Free Hinglish to Hindi converter. Type Roman Hinglish like "aap kaise hain" and get instant Devanagari Hindi (आप कैसे हें). Hindi to Hinglish reverse, copy, listen & WhatsApp share.',
+    title: 'Hinglish to Hindi Converter — Free Online Tool',
+    description: 'Free Hinglish to Hindi converter. Type Roman Hinglish like "aap kaise hain" and get instant Devanagari Hindi. Hindi to Hinglish reverse, copy, listen & share.',
   },
   hi: {
-    title: 'हिंग्लिश टू हिंदी कन्वर्टर — तुरंत देवनागरी में टाइप करें',
-    description: 'फ्री हिंग्लिश टू हिंदी कन्वर्टर। रोमन हिंग्लिश में टाइप करें और तुरंत देवनागरी हिंदी पाएँ। हिंदी से हिंग्लिश, कॉपी, सुनें और व्हाट्सऐप पर भेजें।',
+    title: 'हिंग्लिश टू हिंदी कन्वर्टर — मुफ्त टूल',
+    description: 'फ्री हिंग्लिश टू हिंदी कन्वर्टर। रोमन हिंग्लिश टाइप करें और तुरंत देवनागरी हिंदी पाएँ। हिंदी से हिंग्लिश रिवर्स, कॉपी, सुनें और शेयर करें।',
   },
 };
