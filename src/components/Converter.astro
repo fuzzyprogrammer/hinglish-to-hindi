@@ -25,6 +25,7 @@ const s = UI[locale];
     <button id="copy-btn" type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700">{s.copy}</button>
     <button id="clear-btn" type="button" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">{s.clear}</button>
     <button id="listen-btn" type="button" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">{s.listen}</button>
+    <button id="download-btn" type="button" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">{s.download}</button>
     <a id="wa-btn" href="https://wa.me/?text=" target="_blank" rel="noopener noreferrer"
       class="rounded-md border border-emerald-500 px-3 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950">{s.whatsapp}</a>
   </div>
@@ -49,6 +50,7 @@ const s = UI[locale];
     const clearBtn = document.getElementById('clear-btn') as HTMLButtonElement;
     const listenBtn = document.getElementById('listen-btn') as HTMLButtonElement;
     const waBtn = document.getElementById('wa-btn') as HTMLAnchorElement;
+    const downloadBtn = document.getElementById('download-btn') as HTMLButtonElement;
     const toast = document.getElementById('toast') as HTMLElement;
 
     let mode: 'hl' | 'h2h' = 'h2h';
@@ -106,6 +108,22 @@ const s = UI[locale];
       } else {
         showToast(s.noVoice);
       }
+    });
+    downloadBtn.addEventListener('click', () => {
+      const text = outputEl.textContent || '';
+      if (!text) {
+        showToast(s.emptyDownload);
+        return;
+      }
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'hinglish-output.txt';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
     });
     render();
   }
