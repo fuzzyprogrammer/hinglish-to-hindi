@@ -23,6 +23,7 @@ const s = UI[locale];
   <div id="metrics" class="mt-2 text-xs text-slate-500 dark:text-slate-400">0 {s.words} · 0 {s.chars}</div>
   <div class="mt-3 flex flex-wrap gap-2">
     <button id="emoji-btn" type="button" aria-label={s.emoji} aria-expanded="false" aria-controls="emoji-panel" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">😊</button>
+    <button id="keyboard-btn" type="button" aria-label={s.keyboard} aria-expanded="false" aria-controls="keyboard-panel" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">⌨</button>
     <button id="copy-btn" type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700">{s.copy}</button>
     <button id="clear-btn" type="button" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">{s.clear}</button>
     <button id="listen-btn" type="button" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">{s.listen}</button>
@@ -39,6 +40,16 @@ const s = UI[locale];
     <div data-emoji-grid="smileys" class="grid grid-cols-8 gap-1"></div>
     <div data-emoji-grid="gestures" class="hidden grid grid-cols-8 gap-1"></div>
     <div data-emoji-grid="objects" class="hidden grid grid-cols-8 gap-1"></div>
+  </div>
+  <div id="keyboard-panel" class="hidden mt-3 rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-800">
+    <div class="mb-2 flex gap-1 border-b border-slate-200 pb-2 dark:border-slate-600">
+      <button data-kb-tab="consonants" type="button" class="rounded px-2 py-1 text-xs font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300">Consonants</button>
+      <button data-kb-tab="vowels" type="button" class="rounded px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-700">Vowels & Matras</button>
+      <button data-kb-tab="numbers" type="button" class="rounded px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-700">Numbers & Punct</button>
+    </div>
+    <div data-kb-grid="consonants" class="flex flex-wrap gap-1"></div>
+    <div data-kb-grid="vowels" class="hidden flex flex-wrap gap-1"></div>
+    <div data-kb-grid="numbers" class="hidden flex flex-wrap gap-1"></div>
   </div>
   <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">{s.demoNote}</p>
   <div id="toast" role="status" class="pointer-events-none fixed inset-x-0 bottom-6 z-50 hidden justify-center">
@@ -93,6 +104,43 @@ const s = UI[locale];
       });
     });
 
+    const KB_CHARS: Record<string, string[]> = {
+      consonants: [
+        'क','ख','ग','घ','ङ',
+        'च','छ','ज','झ','ञ',
+        'ट','ठ','ड','ढ','ण',
+        'त','थ','द','ध','न',
+        'प','फ','ब','भ','म',
+        'य','र','ल','व','श','ष','स','ह',
+      ],
+      vowels: [
+        'अ','आ','इ','ई','उ','ऊ','ऋ','ए','ऐ','ओ','औ',
+        'ा','ि','ी','ु','ू','ृ','े','ै','ो','ौ','ं','ः','ँ',
+      ],
+      numbers: [
+        '०','१','२','३','४','५','६','७','८','९',
+        '।','॥',',','.','?','!','-','"',"'",'(',')',
+      ],
+    };
+
+    Object.entries(KB_CHARS).forEach(([category, chars]) => {
+      const grid = keyboardPanel.querySelector(`[data-kb-grid="${category}"]`);
+      if (!grid) return;
+      chars.forEach((ch) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = ch;
+        btn.className = 'flex h-10 min-w-[2.5rem] items-center justify-center rounded border border-slate-200 bg-white px-2 text-base font-medium hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-900 dark:hover:bg-slate-700';
+        btn.addEventListener('click', () => {
+          inputEl.focus();
+          const start = inputEl.selectionStart ?? inputEl.value.length;
+          inputEl.setRangeText(ch, start, start, 'end');
+          render();
+        });
+        grid.appendChild(btn);
+      });
+    });
+
     let activePanel: 'emoji' | 'keyboard' | null = null;
 
     const closeAllPanels = () => {
@@ -123,6 +171,27 @@ const s = UI[locale];
         tab.className = 'rounded px-2 py-1 text-xs font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300';
         emojiPanel.querySelectorAll('[data-emoji-grid]').forEach((g) => g.classList.add('hidden'));
         emojiPanel.querySelector(`[data-emoji-grid="${target}"]`)?.classList.remove('hidden');
+      });
+    });
+
+    keyboardBtn.addEventListener('click', () => {
+      if (activePanel === 'keyboard') { closeAllPanels(); return; }
+      closeAllPanels();
+      keyboardPanel.classList.remove('hidden');
+      keyboardBtn.setAttribute('aria-expanded', 'true');
+      keyboardBtn.classList.add('bg-indigo-100', 'text-indigo-700', 'dark:bg-indigo-900', 'dark:text-indigo-300');
+      activePanel = 'keyboard';
+    });
+
+    keyboardPanel.querySelectorAll('[data-kb-tab]').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-kb-tab')!;
+        keyboardPanel.querySelectorAll('[data-kb-tab]').forEach((t) => {
+          t.className = 'rounded px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-700';
+        });
+        tab.className = 'rounded px-2 py-1 text-xs font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300';
+        keyboardPanel.querySelectorAll('[data-kb-grid]').forEach((g) => g.classList.add('hidden'));
+        keyboardPanel.querySelector(`[data-kb-grid="${target}"]`)?.classList.remove('hidden');
       });
     });
 
