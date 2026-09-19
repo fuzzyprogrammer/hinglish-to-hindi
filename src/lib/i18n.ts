@@ -12,6 +12,9 @@ export type UiStrings = {
   words: string; chars: string;
   directionHtoHinglish: string; directionHinglishToHindi: string;
   demoNote: string;
+  download: string;
+  emptyDownload: string;
+  pastedToast: (count: number) => string;
 };
 
 export const UI: Record<LocaleKey, UiStrings> = {
@@ -27,6 +30,9 @@ export const UI: Record<LocaleKey, UiStrings> = {
     words: 'words', chars: 'characters',
     directionHinglishToHindi: 'Hinglish → Hindi', directionHtoHinglish: 'Hindi → Hinglish',
     demoNote: 'Type long vowels doubled (aap, saath, raahul). Common shortcuts like hain, kya, meri are handled automatically.',
+    download: 'Download',
+    emptyDownload: 'Nothing to download',
+    pastedToast: (count: number) => `${count} words converted from pasted text`,
   },
   hi: {
     converterTitle: 'हिंग्लिश टू हिंदी कन्वर्टर',
@@ -40,5 +46,8 @@ export const UI: Record<LocaleKey, UiStrings> = {
     words: 'शब्द', chars: 'अक्षर',
     directionHinglishToHindi: 'हिंग्लिश → हिंदी', directionHtoHinglish: 'हिंदी → हिंग्लिश',
     demoNote: 'लंबे स्वर दो बार लिखें (aap, saath, raahul)। hain, kya, meri जैसे आम शब्द अपने आप ठीक हो जाते हैं।',
+    download: 'डाउनलोड',
+    emptyDownload: 'डाउनलोड के लिए कुछ नहीं',
+    pastedToast: (count: number) => `${count} शब्द पेस्ट किए गए टेक्स्ट से बदले`,
   },
 };
