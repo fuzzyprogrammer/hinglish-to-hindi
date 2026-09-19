@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ from '../../components/FAQ.astro';
+
+const faqItems = [
+  { q: 'हिंग्लिश क्या है?', a: 'हिंग्लिश हिंदी और अंग्रेज़ी का अनौपचारिक मिश्रण है — रोमन लिपि में हिंदी शब्दों को ध्वनि के अनुसार लिखा जाता है। उदाहरण के लिए, "aap kaise hain" हिंग्लिश में "आप कैसे हैं" का रूप है। यह एक औपचारिक भाषा नहीं है लेकिन भारत भर में व्यापक रूप से इस्तेमाल की जाने वाली संचार शैली है।' },
+  { q: 'क्या हिंग्लिश एक असली भाषा है?', a: 'हिंग्लिश को भाषाविदों द्वारा एक अलग औपचारिक भाषा के रूप में मान्यता प्राप्त नहीं है। यह एक कोड-स्विचिंग पैटर्न है — हिंदी व्याकरण और अंग्रेज़ी शब्दावली का प्राकृतिक मिश्रण, जिसे पूरी तरह से रोमन लिपि में लिखा जाता है। हालांकि, यह भारत में डिजिटल संचार का प्रभावशाली रूप बन गया है।' },
+  { q: 'लोग हिंदी की जगह हिंग्लिश क्यों इस्तेमाल करते हैं?', a: 'अधिकांश भारतीय कीबोर्ड डिफ़ॉल्ट रूप से अंग्रेज़ी (QWERTY) पर सेट होते हैं। देवनागरी में टाइप करने के लिए एक विशेष कीबोर्ड लेआउट या इनपुट विधि की आवश्यकता होती है। हिंग्लिश लोगों को उसी अंग्रेज़ी कीबोर्ड का उपयोग करके हिंदी शब्द टाइप करने देती है — तेज़, परिचित, और बिना किसी सेटअप के।' },
+  { q: 'हिंग्लिश टू हिंदी रूपांतरण कैसे काम करता है?', a: 'कनवर्टर लिप्यंतरण का उपयोग करता है — यह रोमन-लिपि हिंग्लिश ध्वनियों को उनके देवनागरी हिंदी समकक्षों से मैप करता है। उदाहरण के लिए, "kya" "क्या" से मैप होता है, "hain" "हैं" से मैप होता है। सामान्य शब्दों को सटीकता के लिए ओवरराइड नियमों के साथ संभाला जाता है, जबकि अज्ञात शब्द ध्वन्यात्मक मैपिंग से गुजरते हैं।' },
+  { q: 'क्या मैं हिंदी को वापस हिंग्लिश में बदल सकता हूँ?', a: 'हाँ। देवनागरी हिंदी टेक्स्ट कनवर्टर में पेस्ट करें और हिंदी→हिंग्लिश मोड पर स्विच करें। टूल हिंदी टेक्स्ट को पठनीय हिंग्लिश में रोमनाइज़ कर देगा — कैप्शन, सोशल मीडिया पोस्ट और संदेशों के लिए उपयोगी।' },
+  { q: 'हिंग्लिश कहाँ इस्तेमाल होती है?', a: 'हिंग्लिश भारतीय डिजिटल जीवन में हर जगह इस्तेमाल होती है: व्हाट्सऐप संदेश, इंस्टाग्राम कैप्शन, ट्विटर थ्रेड्स, बॉलीवुड गाने के बोल, यूट्यूब कमेंट्स, समाचार शीर्षक, और विज्ञापन भी। अनुमान है कि भारत के 42% से अधिक इंटरनेट उपयोगकर्ता मुख्य रूप से हिंग्लिश में संवाद करते हैं।' },
+  { q: 'क्या यह कनवर्टर मुफ्त है?', a: 'हाँ, पूरी तरह मुफ्त। कोई खाता आवश्यक नहीं, कोई डेटा अपलोड नहीं। सब कुछ आपके ब्राउज़र में चलता है — आपका टेक्स्ट कहीं नहीं जाता।' },
+];
+
+const guideSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'हिंग्लिश क्या है? हिंदी-अंग्रेज़ी कोड-स्विचिंग की पूरी गाइड',
+  description: 'हिंग्लिश के बारे में व्यापक गाइड — यह क्या है, कैसे काम करती है, क्यों 42% भारतीय इंटरनेट उपयोगकर्ता इसमें संवाद करते हैं, और लिप्यंतरण हिंग्लिश को देवनागरी हिंदी में कैसे बदलता है।',
+  author: { '@type': 'Organization', name: 'HinglishToHindi' },
+  publisher: { '@type': 'Organization', name: 'HinglishToHindi' },
+  url: 'https://hinglish.openpixal.com/hi/hinglish-guide/',
+};
+---
+<BaseLayout locale="hi" path="/hi/hinglish-guide/" title="हिंग्लिश क्या है? हिंदी-अंग्रेज़ी कोड-स्विचिंग की पूरी गाइड" description="हिंग्लिश के बारे में व्यापक गाइड — यह क्या है, कैसे काम करती है, क्यों 42% भारतीय इंटरनेट उपयोगकर्ता इसमें संवाद करते हैं।">
+  <article class="mx-auto max-w-3xl space-y-8 px-4 py-8">
+
+    <header>
+      <h1 class="text-3xl font-bold sm:text-4xl">हिंग्लिश क्या है? एक पूरी गाइड</h1>
+      <p class="mt-3 text-lg text-slate-600 dark:text-slate-300">
+        भारत की सबसे लोकप्रिय डिजिटल संचार शैली के बारे में सब कुछ —
+        और इसे सही देवनागरी हिंदी में कैसे बदलें।
+      </p>
+    </header>
+
+    <section>
+      <h2 class="text-xl font-bold">हिंग्लिश क्या है?</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        <strong>हिंग्लिश</strong> <strong>हिंदी</strong> और <strong>अंग्रेज़ी</strong> का
+        अनौपचारिक मिश्रण है जो भारतीय डिजिटल संचार में हावी है। यह रोमन (अंग्रेज़ी)
+        वर्णमाला का उपयोग करके हिंदी शब्दों को ध्वनि के अनुसार लिखता है — उदाहरण के लिए,
+        <em>"aap kaise hain"</em> बनाम <em>"आप कैसे हैं"</em>।
+      </p>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        हिंग्लिश भाषाई अर्थ में एक अलग भाषा नहीं है। यह एक
+        <strong>कोड-स्विचिंग पैटर्न</strong> है — हिंदी व्याकरण और अंग्रेज़ी शब्दावली का
+        प्राकृतिक, सहज मिश्रण, जिसे पूरी तरह से रोमन लिपि में लिखा जाता है।
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">हिंग्लिश का इतिहास</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        हिंग्लिश की शुरुआत इंटरनेट से नहीं हुई। इसकी जड़ें औपनिवेशिक काल तक जाती हैं, जब
+        अंग्रेज़ी शिक्षा ने एक द्विभाषी शहरी अभिजन वर्ग बनाया। 1980 और 1990 के दशक तक,
+        बॉलीवुड ने पहले से ही गाने के बोल और संवादों में हिंग्लिश को लोकप्रिय बना दिया था।
+      </p>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        असली विस्फोट 2000 के दशक की शुरुआत में SMS मैसेजिंग के साथ आया। भारतीय मोबाइल
+        उपयोगकर्ताओं को 12-की कीपैड पर जल्दी से हिंदी टाइप करने की ज़रूरत थी, और रोमन
+        लिप्यंतरण सबसे तेज़ विकल्प था। जब स्मार्टफोन और व्हाट्सऐप आए, तब तक हिंग्लिश
+        भारतीय टेक्स्टिंग की डिफ़ॉल्ट भाषा बन चुकी थी।
+      </p>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        आज, हिंग्लिश भारतीय सोशल मीडिया पर हावी भाषा है। ट्विटर इंडिया के अनुसार,
+        भारत में प्लेटफ़ॉर्म पर सबसे ज़्यादा इस्तेमाल की जाने वाली भाषा हिंग्लिश है।
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">हिंग्लिश कैसे काम करती है?</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        हिंग्लिश सरल ध्वन्यात्मक नियमों का पालन करती है। आप हिंदी शब्दों को उनकी ध्वनि
+        के अनुसार अंग्रेज़ी अक्षरों में टाइप करते हैं:
+      </p>
+      <div class="mt-3 overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-700">
+              <th class="px-3 py-2 text-left font-semibold">हिंग्लिश (रोमन)</th>
+              <th class="px-3 py-2 text-left font-semibold">हिंदी (देवनागरी)</th>
+              <th class="px-3 py-2 text-left font-semibold">अर्थ</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700 dark:text-slate-200">
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">aap kaise hain</td><td class="px-3 py-2">आप कैसे हैं</td><td class="px-3 py-2">आप कैसे हैं?</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">main theek hoon</td><td class="px-3 py-2">मैं ठीक हूँ</td><td class="px-3 py-2">मैं ठीक हूँ</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">kya kar rahe ho</td><td class="px-3 py-2">क्या कर रहे हो</td><td class="px-3 py-2">क्या कर रहे हो?</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">mujhe aana hai</td><td class="px-3 py-2">मुझे आना है</td><td class="px-3 py-2">मुझे आना है</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">yeh bahut sundar hai</td><td class="px-3 py-2">यह बहुत सुन्दर है</td><td class="px-3 py-2">यह बहुत सुन्दर है</td></tr>
+            <tr><td class="px-3 py-2">namaste duniya</td><td class="px-3 py-2">नमस्ते दुनिया</td><td class="px-3 py-2">नमस्ते दुनिया</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">हिंग्लिश इतनी लोकप्रिय क्यों है?</h2>
+      <div class="mt-3 space-y-4">
+        <div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700">
+          <h3 class="font-semibold">1. टाइप करने में तेज़ है</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            मानक QWERTY कीबोर्ड अंग्रेज़ी के लिए डिज़ाइन किया गया है। देवनागरी में टाइप करने
+            के लिए इनपुट विधि बदलनी होती है या नया कीबोर्ड लेआउट सीखना होता है। हिंग्लिश
+            आपको अंग्रेज़ी टाइपिंग स्पीड से हिंदी टाइप करने देती है।
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700">
+          <h3 class="font-semibold">2. हर कोई समझता है</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            भारत में, हिंग्लिश हिंदी बोलने वालों और अंग्रेज़ी बोलने वालों के बीच की खाई
+            को पाटती है। <em>"Meeting kal 3 baje, please on time aa jao"</em> जैसा संदेश
+            लगभग हर भारतीय को समझ में आता है।
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700">
+          <h3 class="font-semibold">3. यह प्राकृतिक लगता है</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            भारतीय भाषाएँ हमेशा दूसरी भाषाओं के शब्दों को अपनाती रही हैं। संस्कृत ने
+            प्राकृत से उधार लिया, हिंदी ने फ़ारसी और अरबी से। हिंग्लिश इस परंपरा का
+            आधुनिक संस्करण है।
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700">
+          <h3 class="font-semibold">4. बॉलीवुड ने इसे कूल बनाया</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            <em>"Ek main aur ek tu"</em> से लेकर <em>"Kabhi Khushi Kabhie Gham"</em> तक,
+            बॉलीवुड हमेशा हिंदी और अंग्रेज़ी को मिलाता रहा है। फिल्म संवाद, गाने के बोल,
+            और मार्केटिंग अभियान सभी हिंग्लिश का उपयोग करते हैं।
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700">
+          <h3 class="font-semibold">5. सोशल मीडिया की मांग है</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            ट्विटर, इंस्टाग्राम, और व्हाट्सऐप छोटे, तेज़ संचार के लिए बने हैं। हिंग्लिश
+            इसके लिए बिल्कुल सही है — संक्षिप्त, अभिव्यंजक, और भारत में सार्वभौमिक रूप से
+            समझी जाती है।
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">कितने लोग हिंग्लिश इस्तेमाल करते हैं?</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        अनुमान है कि <strong>भारत के 42% से अधिक इंटरनेट उपयोगकर्ता</strong> मुख्य रूप से
+        हिंग्लिश या हिंग्लिश जैसे कोड-मिश्रण में संवाद करते हैं। 80 करोड़ से अधिक
+        इंटरनेट उपयोगकर्ताओं के साथ, यह लगभग <strong>35 करोड़ से अधिक लोगों</strong> का
+        आंकड़ा है जो रोज़ाना हिंग्लिश का उपयोग करते हैं।
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">हिंग्लिश कहाँ इस्तेमाल होती है?</h2>
+      <ul class="mt-2 list-disc space-y-2 pl-5 text-slate-700 dark:text-slate-200">
+        <li><strong>व्हाट्सऐप संदेश</strong> — सैकड़ों मिलियन भारतीयों का प्राथमिक संचार माध्यम</li>
+        <li><strong>इंस्टाग्राम कैप्शन</strong> — हिंग्लिश कैप्शन को शुद्ध हिंदी या अंग्रेज़ी से अधिक एंगेजमेंट मिलती है</li>
+        <li><strong>ट्विटर/एक्स थ्रेड्स</strong> — ट्विटर इंडिया पर हिंग्लिश सबसे ज़्यादा इस्तेमाल होने वाली भाषा है</li>
+        <li><strong>बॉलीवुड गाने</strong> — लगभग हर हिंदी फिल्म के गाने में हिंग्लिश बोल होते हैं</li>
+        <li><strong>यूट्यूब कमेंट्स</strong> — भारतीय यूट्यूब पूरी तरह से हिंग्लिश में है</li>
+        <li><strong>विज्ञापन</strong> — ज़ोमैटो, स्विगी, और अमूल जैसी ब्रांडें अपनी मार्केटिंग में हिंग्लिश का उपयोग करती हैं</li>
+        <li><strong>मीम्स</strong> — भारतीय मीम संस्कृति लगभग पूरी तरह से हिंग्लिश में है</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">लिप्यंतरण क्या है?</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        <strong>लिप्यंतरण</strong> एक लिपि से दूसरी लिपि में टेक्स्ट बदलने की प्रक्रिया
+        है, जबकि उच्चारण संरक्षित रहता है। <em>अनुवाद</em> (जो भाषाओं के बीच अर्थ बदलता
+        है) के विपरीत, लिप्यंतरण केवल लिपि बदलता है।
+      </p>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        उदाहरण के लिए:
+      </p>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-slate-700 dark:text-slate-200">
+        <li><strong>लिप्यंतरण:</strong> "namaste" → "नमस्ते" (एक ही शब्द, अलग लिपि)</li>
+        <li><strong>अनुवाद:</strong> "hello" → "नमस्ते" (अलग शब्द, एक ही अर्थ)</li>
+      </ul>
+      <p class="mt-3 text-slate-700 dark:text-slate-200">
+        हमारा <a href="/hi/" class="text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400">हिंग्लिश टू हिंदी कनवर्टर</a>
+        सैंस्क्रिप्ट लाइब्रेरी द्वारा संचालित ध्वन्यात्मक लिप्यंतरण का उपयोग करता है।
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">हिंग्लिश टू हिंदी कनवर्टर क्यों ज़रूरी है?</h2>
+      <div class="mt-3 space-y-3">
+        <p class="text-slate-700 dark:text-slate-200">
+          <strong>सोशल मीडिया के लिए:</strong> आप इंस्टाग्राम या ट्विटर पर हिंदी कैप्शन
+          पोस्ट करना चाहते हैं, लेकिन देवनागरी में टाइप करना धीमा है। हिंग्लिश में टाइप
+          करें, कनवर्ट करें, और देवनागरी टेक्स्ट कॉपी करें।
+        </p>
+        <p class="text-slate-700 dark:text-slate-200">
+          <strong>औपचारिक दस्तावेज़ों के लिए:</strong> आपके पास हिंग्लिश में एक ड्राफ्ट
+          है लेकिन पत्र, आवेदन, या औपचारिक संचार के लिए इसे सही देवनागरी में चाहिए।
+        </p>
+        <p class="text-slate-700 dark:text-slate-200">
+          <strong>सीखने के लिए:</strong> आप हिंदी सीख रहे हैं और देखना चाहते हैं कि
+          रोमन लिप्यंतरण देवनागरी लिपि से कैसे जुड़ता है।
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">हमारा कनवर्टर कैसे काम करता है?</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        हमारा <a href="/hi/" class="text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400">हिंग्लिश टू हिंदी कनवर्टर</a>
+        <strong>ध्वन्यात्मक लिप्यंतरण इंजन</strong> का उपयोग करता है:
+      </p>
+      <ol class="mt-3 list-decimal space-y-2 pl-5 text-slate-700 dark:text-slate-200">
+        <li><strong>शब्द विभाजन:</strong> आपके इनपुट को अलग-अलग शब्दों और व्हाइटस्पेस टोकन में विभाजित किया जाता है।</li>
+        <li><strong>ओवरराइड मिलान:</strong> सामान्य हिंग्लिश शब्दों (hain, kya, main, आदि) को एक क्यूरेटेड डिक्शनरी से मिलाया जाता है।</li>
+        <li><strong>ध्वन्यात्मक मैपिंग:</strong> अज्ञात शब्दों को सैंस्क्रिप्ट की ITRANS-to-Devanagari मैपिंग से बदला जाता है।</li>
+        <li><strong>हलांत सफ़ाई:</strong> ट्रेलिंग हलांत वर्णों को साफ़ किया जाता है।</li>
+        <li><strong>आउटपुट:</strong> कनवर्ट किया गया देवनागरी टेक्स्ट तुरंत आउटपुट क्षेत्र में दिखाई देता है।</li>
+      </ol>
+      <p class="mt-3 text-slate-700 dark:text-slate-200">
+        पूरी प्रक्रिया <strong>आपके ब्राउज़र में क्लाइंट-साइड</strong> चलती है। कोई
+        टेक्स्ट किसी सर्वर को नहीं भेजा जाता। आपकी गोपनीयता सुरक्षित है।
+      </p>
+    </section>
+
+    <section id="faq">
+      <FAQ faq={faqItems} heading="अक्सर पूछे जाने वाले प्रश्न" />
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">अभी आज़माएं</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        अपने हिंग्लिश टेक्स्ट को देवनागरी हिंदी में बदलने के लिए तैयार? हमारे मुफ्त
+        <a href="/hi/" class="text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400">हिंग्लिश टू हिंदी कनवर्टर</a> का
+        उपयोग करें — टाइप करें, बदलें, कॉपी करें, और शेयर करें। कोई खाता ज़रूरी नहीं।
+      </p>
+    </section>
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(guideSchema)} />
+  </article>
+</BaseLayout>

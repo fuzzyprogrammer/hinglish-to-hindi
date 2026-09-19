@@ -15,6 +15,7 @@ export const NAV: Array<{
 }> = [
   { href: { en: '/', hi: '/hi/' }, label: { en: 'Home', hi: 'होम' } },
   { href: { en: '/about/', hi: '/hi/about/' }, label: { en: 'About', hi: 'हमारे बारे में' } },
+  { href: { en: '/hinglish-guide/', hi: '/hi/hinglish-guide/' }, label: { en: 'Hinglish Guide', hi: 'हिंग्लिश गाइड' } },
   { href: { en: '/contact/', hi: '/hi/contact/' }, label: { en: 'Contact', hi: 'संपर्क' } },
   { href: { en: '/privacy-policy/', hi: '/hi/privacy-policy/' }, label: { en: 'Privacy', hi: 'गोपनीयता' } },
   { href: { en: '/terms/', hi: '/hi/terms/' }, label: { en: 'Terms', hi: 'शर्तें' } },
@@ -22,6 +23,7 @@ export const NAV: Array<{
 
 export const CRUMBS: Record<string, { en: string[]; hi: string[] }> = {
   '/about/': { en: ['About'], hi: ['हमारे बारे में'] },
+  '/hinglish-guide/': { en: ['Hinglish Guide'], hi: ['हिंग्लिश गाइड'] },
   '/contact/': { en: ['Contact'], hi: ['संपर्क'] },
   '/privacy-policy/': { en: ['Privacy Policy'], hi: ['गोपनीयता नीति'] },
   '/terms/': { en: ['Terms of Use'], hi: ['उपयोग की शर्तें'] },

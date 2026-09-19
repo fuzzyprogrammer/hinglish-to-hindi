@@ -1,0 +1,337 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQ from '../components/FAQ.astro';
+
+const faqItems = [
+  { q: 'What is Hinglish?', a: 'Hinglish is a blend of Hindi and English — using Roman script to write Hindi words phonetically. For example, "aap kaise hain" is Hinglish for "आप कैसे हैं". It is not a formal language but a widely used communication style across India.' },
+  { q: 'Is Hinglish a real language?', a: 'Hinglish is not recognized as a separate formal language by linguists. It is a code-switching pattern — a natural mix of Hindi grammar with English vocabulary, written in Roman script. However, it is the dominant form of digital communication in India.' },
+  { q: 'Why do people use Hinglish instead of Hindi?', a: 'Most Indian keyboards default to English (QWERTY). Typing in Devanagari requires a special keyboard layout or input method. Hinglish lets people type Hindi words using the same English keyboard they use for everything else — fast, familiar, and no setup needed.' },
+  { q: 'How does Hinglish to Hindi conversion work?', a: 'The converter uses transliteration — it maps Roman-script Hinglish sounds to their Devanagari Hindi equivalents. For example, "kya" maps to "क्या", "hain" maps to "हैं". Common words are handled with override rules for accuracy, while unknown words pass through phonetic mapping.' },
+  { q: 'Can I convert Hindi back to Hinglish?', a: 'Yes. Paste Devanagari Hindi text into the converter and switch to Hindi→Hinglish mode. The tool will romanize the Hindi text into readable Hinglish — useful for captions, social media posts, and messages.' },
+  { q: 'Where is Hinglish used?', a: 'Hinglish is used everywhere in Indian digital life: WhatsApp messages, Instagram captions, Twitter threads, Bollywood song lyrics, YouTube comments, news headlines, and even advertising. Studies suggest over 42% of Indian internet users communicate primarily in Hinglish.' },
+  { q: 'Is this converter free?', a: 'Yes, completely free. No account needed, no data uploaded. Everything runs in your browser — your text never leaves your device.' },
+];
+
+const guideSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'What is Hinglish? A Complete Guide to Hindi-English Code-Switching',
+  description: 'Comprehensive guide to Hinglish — what it is, how it works, why 42% of Indian internet users communicate in it, and how transliteration converts Hinglish to Devanagari Hindi.',
+  author: { '@type': 'Organization', name: 'HinglishToHindi' },
+  publisher: { '@type': 'Organization', name: 'HinglishToHindi' },
+  url: 'https://hinglish.openpixal.com/hinglish-guide/',
+};
+---
+<BaseLayout locale="en" path="/hinglish-guide/" title="What is Hinglish? Complete Guide to Hindi-English Code-Switching" description="Comprehensive guide to Hinglish — what it is, how it works, why 42% of Indian internet users communicate in it, and how transliteration converts Hinglish to Devanagari Hindi.">
+  <article class="mx-auto max-w-3xl space-y-8 px-4 py-8">
+
+    <header>
+      <h1 class="text-3xl font-bold sm:text-4xl">What is Hinglish? A Complete Guide</h1>
+      <p class="mt-3 text-lg text-slate-600 dark:text-slate-300">
+        Everything you need to know about India's most popular form of digital communication —
+        and how to convert it to proper Devanagari Hindi.
+      </p>
+    </header>
+
+    <section>
+      <h2 class="text-xl font-bold">What is Hinglish?</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        <strong>Hinglish</strong> is the informal blend of <strong>Hindi</strong> and <strong>English</strong>
+        that dominates Indian digital communication. It uses the Roman (English) alphabet to write
+        Hindi words phonetically — for example, <em>"aap kaise hain"</em> instead of
+        <em>"आप कैसे हैं"</em>.
+      </p>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        Hinglish is not a separate language in the linguistic sense. It is a
+        <strong>code-switching pattern</strong> — a natural, spontaneous mix of Hindi grammar
+        with English vocabulary, written entirely in Roman script. Linguists call it
+        <em>Hindi-English code-mixing</em>, but the rest of India just calls it Hinglish.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">The History of Hinglish</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        Hinglish did not start on the internet. Its roots go back to the colonial era, when
+        English education created a bilingual urban elite. By the 1980s and 1990s, Bollywood
+        had already popularized Hinglish through song lyrics and dialogues — think of iconic
+        lines like <em>"Ek chutki sindoor ki keemat tum kya jaano, Ramesh Babu?"</em>
+        mixing Hindi and English naturally.
+      </p>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        The real explosion came with SMS messaging in the early 2000s. Indian mobile users
+        needed to type Hindi quickly on 12-key keypads, and Roman transliteration was the
+        fastest option. By the time smartphones and WhatsApp arrived, Hinglish was already
+        the default language of Indian texting.
+      </p>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        Today, Hinglish is the dominant language on Indian social media. Twitter India reports
+        that Hinglish is the most-used language on the platform in India. Instagram captions,
+        YouTube comments, and WhatsApp messages — Hinglish is everywhere.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">How Does Hinglish Work?</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        Hinglish follows simple phonetic rules. You type Hindi words the way they sound,
+        using English letters:
+      </p>
+      <div class="mt-3 overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-700">
+              <th class="px-3 py-2 text-left font-semibold">Hinglish (Roman)</th>
+              <th class="px-3 py-2 text-left font-semibold">Hindi (Devanagari)</th>
+              <th class="px-3 py-2 text-left font-semibold">Meaning</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700 dark:text-slate-200">
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">aap kaise hain</td><td class="px-3 py-2">आप कैसे हैं</td><td class="px-3 py-2">How are you?</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">main theek hoon</td><td class="px-3 py-2">मैं ठीक हूँ</td><td class="px-3 py-2">I am fine</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">kya kar rahe ho</td><td class="px-3 py-2">क्या कर रहे हो</td><td class="px-3 py-2">What are you doing?</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">mujhe aana hai</td><td class="px-3 py-2">मुझे आना है</td><td class="px-3 py-2">I need to come</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">yeh bahut sundar hai</td><td class="px-3 py-2">यह बहुत सुन्दर है</td><td class="px-3 py-2">This is very beautiful</td></tr>
+            <tr><td class="px-3 py-2">namaste duniya</td><td class="px-3 py-2">नमस्ते दुनिया</td><td class="px-3 py-2">Hello world</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-slate-700 dark:text-slate-200">
+        The key rules: long vowels are often doubled (<strong>aa</strong> for आ,
+        <strong>ee</strong> for ई, <strong>oo</strong> for ऊ), common words like
+        <strong>hain</strong>, <strong>kya</strong>, and <strong>main</strong> have
+        standardized spellings, and English words混入 freely within Hindi sentences.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">Why is Hinglish So Popular?</h2>
+      <div class="mt-3 space-y-4">
+        <div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700">
+          <h3 class="font-semibold">1. It is faster to type</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            The standard QWERTY keyboard is designed for English. Typing in Devanagari requires
+            switching input methods or learning a new keyboard layout. Hinglish lets you type
+            Hindi at English typing speed — no switching, no learning curve.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700">
+          <h3 class="font-semibold">2. Everyone understands it</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            In India, Hinglish bridges the gap between Hindi speakers and English speakers.
+            A message like <em>"Meeting kal 3 baje, please on time aa jao"</em> is understood
+            by virtually every Indian — regardless of their primary language.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700">
+          <h3 class="font-semibold">3. It feels natural</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            Indian languages have always absorbed words from other languages. Sanskrit borrowed
+            from Prakrit, Hindi borrowed from Persian and Arabic. Hinglish is the modern version
+            of this tradition — English words integrate seamlessly into Hindi grammar.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700">
+          <h3 class="font-semibold">4. Bollywood made it cool</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            From <em>"Ek main aur ek tu"</em> to <em>"Kabhi Khushi Kabhie Gham"</em>,
+            Bollywood has always mixed Hindi and English. Movie dialogues, song lyrics, and
+            marketing campaigns all use Hinglish — making it aspirational and culturally embedded.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700">
+          <h3 class="font-semibold">5. Social media demands it</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            Twitter, Instagram, and WhatsApp are built for short, fast communication. Hinglish
+            is the perfect fit — concise, expressive, and universally understood in India.
+            Twitter India reports Hinglish as the platform's most-used language in the country.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">How Many People Use Hinglish?</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        Estimates suggest that <strong>over 42% of Indian internet users</strong> communicate
+        primarily in Hinglish or a Hinglish-like code-mix. With India's internet population
+        exceeding 800 million users, that translates to roughly <strong>350+ million people</strong>
+        using Hinglish daily.
+      </p>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        The numbers are even higher among younger demographics. A 2023 survey found that
+        <strong>68% of Indian Gen-Z users</strong> prefer Hinglish over pure Hindi or pure
+        English for digital communication.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">Hinglish vs Hindi vs English</h2>
+      <div class="mt-3 overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-700">
+              <th class="px-3 py-2 text-left font-semibold">Feature</th>
+              <th class="px-3 py-2 text-left font-semibold">Hinglish</th>
+              <th class="px-3 py-2 text-left font-semibold">Hindi</th>
+              <th class="px-3 py-2 text-left font-semibold">English</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700 dark:text-slate-200">
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2 font-medium">Script</td><td class="px-3 py-2">Roman (Latin)</td><td class="px-3 py-2">Devanagari</td><td class="px-3 py-2">Roman (Latin)</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2 font-medium">Grammar</td><td class="px-3 py-2">Hindi</td><td class="px-3 py-2">Hindi</td><td class="px-3 py-2">English</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2 font-medium">Vocabulary</td><td class="px-3 py-2">Hindi + English mix</td><td class="px-3 py-2">Pure Hindi (Sanskritized)</td><td class="px-3 py-2">Pure English</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2 font-medium">Typing speed</td><td class="px-3 py-2">Fast (QWERTY)</td><td class="px-3 py-2">Slow (special layout)</td><td class="px-3 py-2">Fast (QWERTY)</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2 font-medium">Digital usage</td><td class="px-3 py-2">Dominant</td><td class="px-3 py-2">Formal / official</td><td class="px-3 py-2">Professional</td></tr>
+            <tr><td class="px-3 py-2 font-medium">Formality</td><td class="px-3 py-2">Informal</td><td class="px-3 py-2">Formal to informal</td><td class="px-3 py-2">Formal</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">Where is Hinglish Used?</h2>
+      <ul class="mt-2 list-disc space-y-2 pl-5 text-slate-700 dark:text-slate-200">
+        <li><strong>WhatsApp messages</strong> — the primary communication method for hundreds of millions of Indians</li>
+        <li><strong>Instagram captions</strong> — Hinglish captions get more engagement than pure Hindi or English</li>
+        <li><strong>Twitter/X threads</strong> — Hinglish is the most-used language on Twitter India</li>
+        <li><strong>Bollywood songs</strong> — almost every Hindi film song contains Hinglish lyrics</li>
+        <li><strong>YouTube comments</strong> — Indian YouTube is overwhelmingly Hinglish</li>
+        <li><strong>News headlines</strong> — many Indian news outlets use Hinglish headlines for wider reach</li>
+        <li><strong>Advertising</strong> — brands like Amul, Zomato, and Swiggy use Hinglish in their marketing</li>
+        <li><strong>Memes</strong> — Indian meme culture is almost entirely in Hinglish</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">What is Transliteration?</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        <strong>Transliteration</strong> is the process of converting text from one script to
+        another while preserving the pronunciation. Unlike <em>translation</em> (which converts
+        meaning between languages), transliteration only changes the script.
+      </p>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        For example:
+      </p>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-slate-700 dark:text-slate-200">
+        <li><strong>Transliteration:</strong> "namaste" → "नमस्ते" (same word, different script)</li>
+        <li><strong>Translation:</strong> "hello" → "नमस्ते" (different word, same meaning)</li>
+      </ul>
+      <p class="mt-3 text-slate-700 dark:text-slate-200">
+        Our <a href="/" class="text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400">Hinglish to Hindi converter</a>
+        uses phonetic transliteration powered by the Sanscript library. It maps Roman-script
+        Hinglish sounds to their Devanagari equivalents, with special handling for common
+        Hinglish words like <em>hain</em>, <em>kya</em>, and <em>main</em>.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">Why Do You Need a Hinglish to Hindi Converter?</h2>
+      <div class="mt-3 space-y-3">
+        <p class="text-slate-700 dark:text-slate-200">
+          <strong>For social media:</strong> You want to post Hindi captions on Instagram or
+          Twitter, but typing in Devanagari is slow. Type in Hinglish, convert, and copy the
+          Devanagari text.
+        </p>
+        <p class="text-slate-700 dark:text-slate-200">
+          <strong>For formal documents:</strong> You have a draft in Hinglish but need it in
+          proper Devanagari for a letter, application, or official communication.
+        </p>
+        <p class="text-slate-700 dark:text-slate-200">
+          <strong>For learning:</strong> You are learning Hindi and want to see how Roman
+          transliteration maps to Devanagari script.
+        </p>
+        <p class="text-slate-700 dark:text-slate-200">
+          <strong>For accessibility:</strong> You need to convert Hinglish text to Devanagari
+          for someone who reads Hindi but not Roman transliteration.
+        </p>
+        <p class="text-slate-700 dark:text-slate-200">
+          <strong>For reverse conversion:</strong> You have Devanagari text and want to convert
+          it to readable Roman Hinglish for sharing on platforms that don't support Devanagari
+          well.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">Common Hinglish Words and Phrases</h2>
+      <div class="mt-3 overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-700">
+              <th class="px-3 py-2 text-left font-semibold">Hinglish</th>
+              <th class="px-3 py-2 text-left font-semibold">Devanagari</th>
+              <th class="px-3 py-2 text-left font-semibold">English</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700 dark:text-slate-200">
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">namaste</td><td class="px-3 py-2">नमस्ते</td><td class="px-3 py-2">Hello</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">shukriya</td><td class="px-3 py-2">शुक्रिया</td><td class="px-3 py-2">Thank you</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">accha</td><td class="px-3 py-2">अच्छा</td><td class="px-3 py-2">Good / OK</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">chalo</td><td class="px-3 py-2">चलो</td><td class="px-3 py-2">Let's go</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">bas</td><td class="px-3 py-2">बस</td><td class="px-3 py-2">Enough / That's it</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">theek hai</td><td class="px-3 py-2">ठीक है</td><td class="px-3 py-2">OK / Alright</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">ek minute</td><td class="px-3 py-2">एक मिनट</td><td class="px-3 py-2">One minute</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">kya baat hai</td><td class="px-3 py-2">क्या बात है</td><td class="px-3 py-2">Wow / That's great</td></tr>
+            <tr class="border-b border-slate-100 dark:border-slate-800"><td class="px-3 py-2">matlab</td><td class="px-3 py-2">मतलब</td><td class="px-3 py-2">Meaning / I mean</td></tr>
+            <tr><td class="px-3 py-2">warna</td><td class="px-3 py-2">वरना</td><td class="px-3 py-2">Otherwise</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">Hinglish in Bollywood</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        Bollywood has been speaking Hinglish since long before the internet existed. Some
+        iconic examples:
+      </p>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-slate-700 dark:text-slate-200">
+        <li><em>"Mogambo khush hua"</em> — Mr. India (1987)</li>
+        <li><em>"How's the josh?"</em> — Uri (2019) — pure English in a Hindi film</li>
+        <li><em>"Ek chutki sindoor ki keemat tum kya jaano, Ramesh Babu?"</em> — Om Shanti Om</li>
+        <li><em>"Senior citizens ke liye discount hai"</em> — Welcome (2007)</li>
+        <li><em>"Thappad se darr nahi lagta sahab, pyaar se lagta hai"</em> — Dabangg</li>
+      </ul>
+      <p class="mt-3 text-slate-700 dark:text-slate-200">
+        These dialogues work because Hinglish is the language Indians actually speak.
+        Bollywood understood this decades before social media made it mainstream.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">How Our Converter Works</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        Our <a href="/" class="text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400">Hinglish to Hindi converter</a>
+        uses a <strong>phonetic transliteration engine</strong> built on the Sanscript library.
+        Here is how it works:
+      </p>
+      <ol class="mt-3 list-decimal space-y-2 pl-5 text-slate-700 dark:text-slate-200">
+        <li><strong>Word splitting:</strong> Your input is split into individual words and whitespace tokens.</li>
+        <li><strong>Override matching:</strong> Common Hinglish words (hain, kya, main, theek, etc.) are matched against a curated dictionary for perfect accuracy.</li>
+        <li><strong>Phonetic mapping:</strong> Unknown words are transliterated using Sanscript's ITRANS-to-Devanagari mapping — "kya" becomes "क्या", "sundar" becomes "सुन्दर".</li>
+        <li><strong>Halant cleanup:</strong> Trailing halant characters are removed for cleaner output.</li>
+        <li><strong>Output:</strong> The converted Devanagari text appears instantly in the output area.</li>
+      </ol>
+      <p class="mt-3 text-slate-700 dark:text-slate-200">
+        The entire process runs <strong>client-side in your browser</strong>. No text is sent
+        to any server. Your privacy is preserved.
+      </p>
+    </section>
+
+    <section id="faq">
+      <FAQ faq={faqItems} heading="Frequently Asked Questions" />
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold">Try It Now</h2>
+      <p class="mt-2 text-slate-700 dark:text-slate-200">
+        Ready to convert your Hinglish text to Devanagari Hindi? Use our free
+        <a href="/" class="text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400">Hinglish to Hindi converter</a> —
+        type, convert, copy, and share. No account needed. Works on any device.
+      </p>
+    </section>
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(guideSchema)} />
+  </article>
+</BaseLayout>
