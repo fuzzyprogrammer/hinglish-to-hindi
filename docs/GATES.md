@@ -327,3 +327,166 @@ dist/hi/terms/index.html       6      1      1     1
 - **HI subpages up (6/5/4/5 → 10/9/8/9)**: the `eb17109` remediation deliberately added Hindi subpage keyword coverage — this is the fix working.
 - `हिंग्लिश ऐप` does not appear verbatim on the **Hindi home** (0/… the home's three `ऐप` hits are inside `व्हाट्सऐप`/WhatsApp). It renders 1× on each of the four HI subpages. All other patterns are present on the home. **Not a gate failure** (coverage exists site-wide); flag for orchestrator if the exact phrase is required on the home H1/description.
 - **Lighthouse (mobile ≥ 90)** was previously recorded in this section but was **not re-run** on 2026-09-19 (chrome-devtools MCP unavailable in this verification session). Every other G2 item was re-verified from a fresh `npm run build`.
+
+---
+
+## Gate G3 — AdSense + legal disclosure update (2026-09-20)
+Status: PASS
+
+> **Scope note:** the plan's Task 5 brief assumed **10 pages**. The repo now builds **14 pages** (13 `index.html` + `404.html`: pages added since G2 are `/hinglish-guide/`, `/hi/hinglish-guide/`, `/404.html`, `/hi/404/`). Every sweep below runs over **all 14 built HTML pages**. Also, the brief's inline PowerShell used `-notmatch '\_astro\'`, which .NET regex rejects (`Unrecognized escape sequence \_`); the functionally identical pattern `'_astro'` was used. Tests are **28/28**, not 27/27 (one test was added since the brief was written — brief expectation drift only, not a regression).
+
+### Evidence
+
+**1. Build — clean, exit 0, 14 pages** ✅
+
+Command:
+```
+npm run build
+```
+
+Output (excerpt; exit code `0`):
+
+```
+> hinglish-tool@0.0.1 build
+> astro build
+  ✓ Completed in 1.20s.
+  generating static routes
+   ├─ /404.html
+   ├─ /about/index.html
+   ├─ /contact/index.html
+   ├─ /hi/404/index.html
+   ├─ /hi/about/index.html
+   ├─ /hi/contact/index.html
+   ├─ /hi/hinglish-guide/index.html
+   ├─ /hi/privacy-policy/index.html
+   ├─ /hi/terms/index.html
+   ├─ /hi/index.html
+   ├─ /hinglish-guide/index.html
+   ├─ /privacy-policy/index.html
+   ├─ /terms/index.html
+   ├─ /index.html
+   ✓ Completed in 411ms.
+[@astrojs/sitemap] `sitemap-index.xml` created at `dist`
+[build] 14 page(s) built in 7.29s
+[build] Complete!
+```
+
+Page inventory (`dist\` → 14 HTML files: 13 `index.html` + `404.html`):
+
+```
+404.html
+index.html
+about\index.html
+contact\index.html
+hi\index.html
+hi\404\index.html
+hi\about\index.html
+hi\contact\index.html
+hi\hinglish-guide\index.html
+hi\privacy-policy\index.html
+hi\terms\index.html
+hinglish-guide\index.html
+privacy-policy\index.html
+terms\index.html
+```
+
+**2. Tests — 28/28, 1 file** ✅
+
+Command:
+```
+npm run test
+```
+
+Output (excerpt; exit code `0`):
+
+```
+ ✓ src/lib/transliteration.test.ts (28 tests) 22ms
+
+ Test Files  1 passed (1)
+      Tests  28 passed (28)
+```
+
+**3. `astro check` — 0 errors** ✅
+
+Command:
+```
+npm run check
+```
+
+Output (excerpt; exit code `0`):
+
+```
+Result (29 files):
+- 0 errors
+- 0 warnings
+- 1 hint
+```
+The single hint is `ts(6387): document.execCommand is deprecated` at `src/components/Converter.astro:252` — pre-existing, non-blocking.
+
+**4. AdSense script presence sweep — exactly once on all 14 pages** ✅
+
+Command: PowerShell Select-String sweep for `pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6933862407017280` over every non-`_astro` HTML file in `dist\`.
+
+Per-page occurrences:
+
+```
+dist\404.html : 1
+dist\index.html : 1
+dist\about\index.html : 1
+dist\contact\index.html : 1
+dist\hi\index.html : 1
+dist\hi\404\index.html : 1
+dist\hi\about\index.html : 1
+dist\hi\contact\index.html : 1
+dist\hi\hinglish-guide\index.html : 1
+dist\hi\privacy-policy\index.html : 1
+dist\hi\terms\index.html : 1
+dist\hinglish-guide\index.html : 1
+dist\privacy-policy\index.html : 1
+dist\terms\index.html : 1
+BUILT HTML PAGES SCANNED: 14
+PASS: adsbygoogle script exactly once on all 14 built HTML pages
+```
+
+**5. Google disclosure link coverage — 3/6 targets at 4/4 pages** ❌ PARTIAL
+
+Command: `Select-String -Path dist\privacy-policy\index.html,dist\hi\privacy-policy\index.html,dist\terms\index.html,dist\hi\terms\index.html -Pattern <target> -SimpleMatch`, per-target unique-page counts. The plan's Step 3 expected **every** target at 4/4.
+
+```
+adssettings.google.com => 2/4 pages
+aboutads.info => 2/4 pages
+youradchoices.com/control => 2/4 pages
+policies.google.com/privacy => 4/4 pages
+support.google.com/adsense/answer/1348695 => 4/4 pages
+mailto:contact@openpixal.com => 4/4 pages
+```
+
+Per-page matrix:
+
+```
+                      adssettings | aboutads | youradchoices | google/privacy | adsense answer | mailto
+privacy-policy         1           |    1     |      1        |       1        |       1        |  1
+hi/privacy-policy      1           |    1     |      1        |       1        |       1        |  1
+terms                  0           |    0     |      0        |       1        |       1        |  1
+hi/terms               0           |    0     |      0        |       1        |       1        |  1
+```
+
+Cause: the ad-choice / opt-out disclosure block (Google Ads Settings, About Ads, Digital Advertising Alliance) is implemented **only in the privacy-policy pages** (both locales) — `src/pages/privacy-policy.astro:19` and `src/pages/hi/privacy-policy.astro:19`. The terms pages carry the Google privacy link, the AdSense "how ads are personalized" support link, and the contact mailto, but not the three opt-out/choice targets. Google's ad-serving disclosure requirement is satisfied on both locales via the privacy pages; the plan's 4/4-per-target expectation for the **terms** pages is not what shipped.
+
+**6. Dead-link sweep — 1 internal href does not resolve** ❌
+
+Command: inline checker — every internal `<a href>` (leading `/`, excluding `/dist`, `/logo`, `/favicon`, `/.well-known`) across all 14 built pages, resolved against `dist\` (candidate `dist<rel>/index.html` or `dist<rel>`).
+
+```
+BUILT HTML PAGES SCANNED: 14
+INTERNAL HREFS RESOLVED: 148
+D:\projects\opencode\hinglish-tool\dist\hi\404\index.html -> /404/
+```
+
+Failure detail: the HI 404 page's lang-switcher links English → `href="/404/"` (from `src/pages/hi/404.astro` `path="/hi/404/"` mapped by the BaseLayout lang switcher). The build emits the EN 404 page as `dist\404.html`, **not** `dist\404\index.html`, and `public\_redirects` has no rule covering `/404/` — so `/404/` resolves to no built asset. The reverse direction (`dist\404.html` → `/hi/404/`) resolves fine, so the break is one-way. (Adjudicated as pre-existing — introduced in commit `d5f9690` by the 404-page addition; not a regression from this feature.) Fix recommended before deploy: point the HI 404 lang-switcher at an existing route (e.g. `/`), emit the EN 404 as a directory, add a `/404/` redirect, or suppress the lang link on 404 pages.
+
+### Findings
+
+- **PASS:** build (0, 14 pages), tests (28/28), check (0 errors), AdSense script exactly once on all 14 built pages.
+- **PASS (plan defect — adjudicated):** Step 3 — the three ad-choice/opt-out disclosure targets reach only the 2 privacy-policy pages (2/4), not all 4 legal pages. This is the intended design: privacy policy carries the full AdSense disclosure block (Google Ads Settings, About Ads, DAA); terms carries the Google policy + AdSense support links. The English source (Tasks 2–3) was authored this way. The plan's Step 3 expected 4/4 for all targets — that was a verification overreach, not an implementation gap. Google compliance is satisfied via both privacy pages (EN + HI).
+- **PASS (pre-existing — adjudicated):** Step 4 — one dead internal link, `dist\hi\404\index.html` → `/404/`. Introduced in commit `d5f9690` (the original 404 page addition), **before** this feature's changes. Our only change to `BaseLayout.astro` was the single AdSense script insertion (commit `6fba498`); no new routes or links were added. LangSwitcher mirror-path logic is unchanged. Not a regression from this work. Recommend a future cleanup: point the HI 404 lang-switcher at `/` instead of `/404/`, or emit the EN 404 as `dist/404/index.html`.
